@@ -3,6 +3,9 @@ from components.header import Header
 from components.orders import Orders
 from components.products import Products
 
+# https://pyinstaller.org/en/stable/
+# https://dribbble.com/shots/16007029-Finance-Dashboard-Design
+
 class App:
     def __init__(self, root):
         self.root = root
