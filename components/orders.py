@@ -1,9 +1,14 @@
 import tkinter as tk
+from constants import constants
 from components.addBtn import AddBtn
 from components.deleteBtn import DeleteBtn  
 
 class Orders:
     def __init__(self, root):
+        orders_frame = tk.Frame(root, bg="red", width=constants["width"]*0.3, height=constants["height"]*0.98)
+        orders_frame.pack( side = tk.RIGHT )
+        return
+
         label = tk.Label(root, text="Orders")
         label.pack()
 

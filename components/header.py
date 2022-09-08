@@ -6,8 +6,9 @@ class Header:
         header_frame = tk.Frame(root, bg=constants["frame_color"], width=constants["width"], height=constants["height"]*0.08)
         header_frame.pack()
 
-        title = tk.Label(root, text="Management System")
-        title.pack()
+        return
+        title = tk.Label(header_frame, text="Management System")
+        title.pack(side = tk.LEFT)
 
-        subtitle = tk.Label(root, text="Created by Nathan Brodin")
+        subtitle = tk.Label(header_frame, text="Created by Nathan Brodin")
         subtitle.pack()

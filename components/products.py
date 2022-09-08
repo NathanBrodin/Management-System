@@ -1,11 +1,16 @@
 import tkinter as tk
+from constants import constants
 from components.addBtn import AddBtn
 from components.deleteBtn import DeleteBtn 
 
 class Products:
     def __init__(self, root):
-        label = tk.Label(root, text="Products")
-        label.pack()
+        products_frame = tk.Frame(root, bg="green", width=constants["width"]*0.7, height=constants["height"]*0.98)
+        products_frame.pack( side = tk.LEFT )
+
+        return
+        label = tk.Label(products_frame, text="Products")
+        label.pack( side=tk.TOP )
 
         apple = Product(root, "21353", "Apple", 1.3, 10)
         banana = Product(root, "21354", "Banana", 1.5, 20)
