@@ -1,4 +1,4 @@
-import tkinter as tk
+import customtkinter as ctk
 from components.header import Header
 from components.orders import Orders
 from components.products import Products
@@ -6,6 +6,7 @@ from constants import constants
 
 # https://pyinstaller.org/en/stable/
 # https://dribbble.com/shots/16007029-Finance-Dashboard-Design
+# pip3 install customtkinter
 
 class App:
     def __init__(self, root):
@@ -39,5 +40,8 @@ class App:
         
 
 if __name__ == '__main__':
-    root = tk.Tk()
+    ctk.set_appearance_mode("System")  # Modes: system (default), light, dark
+    ctk.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
+
+    root = ctk.CTk()
     app = App(root)

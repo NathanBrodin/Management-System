@@ -1,0 +1,32 @@
+{
+    "products_available": [
+        {
+            "product_id": {
+                "product_name": "product_name",
+                "product_price": "product_price",
+                "product_stock": "product_stock"
+            }
+        },
+        {
+            "product_id": {
+                "product_name": "product_name",
+                "product_price": "product_price",
+                "product_stock": "product_stock"
+            }
+        },
+        {
+            "product_id": {
+                "product_name": "product_name",
+                "product_price": "product_price",
+                "product_stock": "product_stock"
+            }
+        },
+        {
+            "00002": {
+                "product_name": "Apple",
+                "product_price": "1.4",
+                "product_stock": "10"
+            }
+        }
+    ]
+}
