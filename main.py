@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import font
 from components.header import Header
 from components.orders import Orders
 from components.products import Products
