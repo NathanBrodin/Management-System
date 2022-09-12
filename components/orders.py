@@ -7,8 +7,9 @@ class Orders(ctk.CTkFrame):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.initUI()
         return
+
+        self.initUI()
 
         order1 = Order(root, "01/12/2022", "25314", "Nathan_Brodin", "CANCELLED", 1.4)
 
