@@ -1,21 +1,22 @@
-import tkinter as tk
+import customtkinter as ctk
 from constants import constants
 from components.addBtn import AddBtn
 from components.deleteBtn import DeleteBtn  
 
-class Orders:
-    def __init__(self, root):
-        orders_frame = tk.Frame(root, bg="red", width=constants["width"]*0.3, height=constants["height"]*0.98)
-        orders_frame.pack( side = tk.RIGHT )
-        return
+class Orders(ctk.CTkFrame):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-        label = tk.Label(root, text="Orders")
-        label.pack()
+        self.initUI()
+        return
 
         order1 = Order(root, "01/12/2022", "25314", "Nathan_Brodin", "CANCELLED", 1.4)
 
         AddBtn(root, "Create new order", self.add)
         DeleteBtn(root, "Cancel order", self.delete)
+
+    def initUI(self):
+        return
 
     def add(self):
         print("Add order")
@@ -34,17 +35,4 @@ class Order:
         self.initUI(root)
 
     def initUI(self, root):
-        date = tk.Label(root, text=self.order_date)
-        date.pack()
-
-        id = tk.Label(root, text=self.order_id)
-        id.pack()
-
-        customer = tk.Label(root, text=self.order_customer)
-        customer.pack()
-
-        status = tk.Label(root, text=self.order_status)
-        status.pack()
-
-        cost = tk.Label(root, text=self.order_cost)
-        cost.pack()
+        return

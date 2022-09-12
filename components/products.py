@@ -1,29 +1,26 @@
-import tkinter as tk
+import customtkinter as ctk
 from constants import constants
 from components.addBtn import AddBtn
 from components.deleteBtn import DeleteBtn 
 import json
 
-class Products:
-    def __init__(self, root):
-        self.initUI(root)
-        
-        self.products_available = self.loadProducts()
-        self.addProduct("00002", "Apple", "1.4", "10")
+class Products(ctk.CTkFrame):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+    
+        self.loadProducts()
+        self.initUI()
 
+        return
         apple = Product(root, "21353", "Apple", 1.3, 10)
         banana = Product(root, "21354", "Banana", 1.5, 20)
         orange = Product(root, "21355", "Orange", 1.7, 30)
 
-        #AddBtn(root, "Add new product", self.addProduct("21356", "Pineapple", 2.3, 40))
+        AddBtn(root, "Add new product", self.addProduct("21356", "Pineapple", 2.3, 40))
         DeleteBtn(root, "Delete product", self.deleteProduct)
 
-    def initUI(self, root):
-        products_frame = tk.Frame(root, bg="green", width=constants["width"]*0.7, height=constants["height"]*0.98)
-        products_frame.pack( side = tk.LEFT )
-
-        label = tk.Label(products_frame, text="Products")
-        label.pack( side=tk.TOP )
+    def initUI(self):
+        return
 
     def addProduct(self, product_id, product_name, product_price, product_stock):
         new_product = {
@@ -34,9 +31,9 @@ class Products:
             }
         }
 
-        self.products_available["products_available"].append(new_product)
+        self.products_available_from_file["products_available"].append(new_product)
         with open("./src/products.json", "w") as products_file:
-            json.dump(self.products_available, products_file, indent=4)
+            json.dump(self.products_available_from_file, products_file, indent=4)
 
         print("New product added")
     
@@ -48,9 +45,11 @@ class Products:
             try :
                 data = json.load(json_products)
                 print("Products loaded")
-                return data
             except:
                 print("Error loading products")
+                return
+
+        self.products_available_from_file = data
         
 
 class Product:
@@ -63,14 +62,4 @@ class Product:
         self.initUI(root)
 
     def initUI(self, root):
-        id = tk.Label(root, text=self.product_id)
-        id.pack()
-
-        name = tk.Label(root, text=self.product_name)
-        name.pack()
-
-        price = tk.Label(root, text=self.product_price)
-        price.pack()
-
-        stock = tk.Label(root, text=self.product_stock)
-        stock.pack()
+        return
