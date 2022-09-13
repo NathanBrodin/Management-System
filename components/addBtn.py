@@ -1,6 +1,6 @@
-import tkinter as tk
+import customtkinter as ctk
 
-class AddBtn:
-    def __init__(self, root, text, command):
-        self.btn = tk.Button(root, text=text, command=command)
-        self.btn.pack()
+class AddBtn(ctk.CTkButton):
+    def __init__(self, text, command, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.configure(text=text, command=command, bg_color="#b4eeb4", fg_color="#b4eeb4")
