@@ -7,9 +7,8 @@ class Orders(ctk.CTkFrame):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        return
-
         self.initUI()
+        return
 
         order1 = Order(root, "01/12/2022", "25314", "Nathan_Brodin", "CANCELLED", 1.4)
 
@@ -17,7 +16,8 @@ class Orders(ctk.CTkFrame):
         DeleteBtn(root, "Cancel order", self.delete)
 
     def initUI(self):
-        return
+        self.product_list_frame_title = ctk.CTkLabel(master=self, text="Oders activity",  width=120, height=25, text_font=("Arial Black", 12), text_color="white", anchor="nw")
+        self.product_list_frame_title.grid(row=0, column=0,  pady=10, padx=10, sticky="nsew")
 
     def add(self):
         print("Add order")

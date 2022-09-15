@@ -43,7 +43,7 @@ class App(ctk.CTk):
 
         # Create the Product frame at the right side
         self.orders_frame = Orders(self.body_frame)
-        self.orders_frame.configure(corner_radius=0, fg_color="white", width=constants["width"] * 0.3)
+        self.orders_frame.configure(corner_radius=constants["width"] * 0.02, fg_color="black", width=constants["width"] * 0.3)
         self.orders_frame.grid(row=0, column=1)
 
         for frame in [self.header_frame, self.body_frame, self.products_frame, self.orders_frame]:
