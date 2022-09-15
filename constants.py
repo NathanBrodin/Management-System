@@ -1,5 +1,5 @@
-constants = {"width":800,
-            "height":500,
+constants = {"width":1000,
+            "height": 600,
             "bg_color": "#ffffff",
             "frame_color": "#8c6650",
             "text_color": "#000000",
