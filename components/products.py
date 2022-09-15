@@ -23,16 +23,24 @@ class Products(ctk.CTkFrame):
         self.product_list_frame_title = ctk.CTkLabel(master=self.product_list_frame, text="Products available",  width=120, height=25, text_font=("Arial Black", 12), text_color="black")
         self.product_list_frame_title.grid(row=0, column=0,  pady=10, padx=10, sticky="nsew")
 
+        self.product_list = []
+        for product in self.products_available_from_file["products_available"]:
+            i = 0
+            for key, value in product.items():
+                i += 1
+                self.product_list.append(self.Product(self.product_list_frame, product_id=key, product_name=value["product_name"], product_price=str(value["product_price"]), product_stock=str(value["product_stock"])))
+                self.product_list[i - 1].grid(row= i, column=0, sticky="nsew")
+
         ############################# TEST #############################
 
-        self.test_product = self.Product(self.product_list_frame, product_id="00001", product_name="Apple", product_price="1.3", product_stock="5")
-        self.test_product.grid(row=1, column=0, sticky="nsew")
+        #self.test_product = self.Product(self.product_list_frame, product_id="00001", product_name="Apple", product_price="1.3", product_stock="5")
+        #self.test_product.grid(row=1, column=0, sticky="nsew")
 
-        self.test_product = self.Product(self.product_list_frame, product_id="00002", product_name="Banana", product_price="0.89", product_stock="12")
-        self.test_product.grid(row=1, column=1, sticky="nsew")
+        #self.test_product = self.Product(self.product_list_frame, product_id="00002", product_name="Banana", product_price="0.89", product_stock="12")
+        #self.test_product.grid(row=1, column=1, sticky="nsew")
 
-        self.test_product = self.Product(self.product_list_frame, product_id="00003", product_name="Orange", product_price="2.45", product_stock="45")
-        self.test_product.grid(row=2, column=0, sticky="nsew")
+        #self.test_product = self.Product(self.product_list_frame, product_id="00003", product_name="Orange", product_price="2.45", product_stock="45")
+        #self.test_product.grid(row=1, column=3, sticky="nsew")
 
         ################################################################
 
@@ -40,10 +48,21 @@ class Products(ctk.CTkFrame):
         self.configure_frame.configure(corner_radius=0, fg_color="white")
         self.configure_frame.grid(row=1, column=0, sticky="nsew")
 
-        self.addBtn = AddBtn(text="Add new product", command=self.addProduct, master=self.configure_frame)
+        self.addBtn = AddBtn(text="Add new product", command=self.addProduct("00004", "Tomato", 1.3, 12), master=self.configure_frame)
         self.deleteBtn = DeleteBtn(text="Delete product", command=self.deleteProduct, master=self.configure_frame)
         self.addBtn.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
         self.deleteBtn.grid(row=0, column=1, pady=10, padx=10, sticky="nsew")
+
+    def loadProducts(self):
+        with open('./src/products.json') as json_products:
+            try :
+                data = json.load(json_products)
+                print("Products loaded")
+            except:
+                print("Error loading products")
+                return
+
+        self.products_available_from_file = data
 
     def addProduct(self, product_id, product_name, product_price, product_stock):
         new_product = {
@@ -62,17 +81,6 @@ class Products(ctk.CTkFrame):
     
     def deleteProduct(self):
         print("Product deleted")
-
-    def loadProducts(self):
-        with open('./src/products.json') as json_products:
-            try :
-                data = json.load(json_products)
-                print("Products loaded")
-            except:
-                print("Error loading products")
-                return
-
-        self.products_available_from_file = data
 
     class Product(ctk.CTkFrame):
         def __init__(self, *args, product_id="", product_name="", product_price="", product_stock="", **kwargs):

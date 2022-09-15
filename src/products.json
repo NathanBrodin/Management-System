@@ -1,31 +1,220 @@
 {
     "products_available": [
         {
-            "product_id": {
-                "product_name": "product_name",
-                "product_price": "product_price",
-                "product_stock": "product_stock"
+            "00001": {
+                "product_name": "Apple",
+                "product_price": 1.4,
+                "product_stock": 10
             }
         },
         {
             "00002": {
-                "product_name": "Apple",
-                "product_price": "1.4",
-                "product_stock": "10"
-            }
-        },
-        {
-            "21356": {
-                "product_name": "Pineapple",
-                "product_price": 2.3,
+                "product_name": "Banana",
+                "product_price": 0.89,
                 "product_stock": 40
             }
         },
         {
-            "21356": {
-                "product_name": "Pineapple",
-                "product_price": 2.3,
-                "product_stock": 40
+            "00003": {
+                "product_name": "Orange",
+                "product_price": 0.34,
+                "product_stock": 23
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
+            }
+        },
+        {
+            "00004": {
+                "product_name": "Tomato",
+                "product_price": 1.3,
+                "product_stock": 12
             }
         }
     ]
