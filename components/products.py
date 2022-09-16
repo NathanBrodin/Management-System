@@ -1,9 +1,11 @@
+from tokenize import Number
 from turtle import width
 import customtkinter as ctk
 from constants import constants
 from components.addBtn import AddBtn
 from components.deleteBtn import DeleteBtn 
 import json
+import random
 
 class Products(ctk.CTkFrame):
     def __init__(self, *args, **kwargs):
@@ -24,32 +26,26 @@ class Products(ctk.CTkFrame):
         self.product_list_frame_title.grid(row=0, column=0,  pady=10, padx=10, sticky="nsew")
 
         self.product_list = []
-        for product in self.products_available_from_file["products_available"]:
-            i = 0
+        i = 0
+        j = 0
+        products_available = self.products_available_from_file["products_available"]
+        for product in products_available:
             for key, value in product.items():
-                i += 1
+                if (i % 3) == 0:
+                    j += 1
+                    i = 0
+
                 self.product_list.append(self.Product(self.product_list_frame, product_id=key, product_name=value["product_name"], product_price=str(value["product_price"]), product_stock=str(value["product_stock"])))
-                self.product_list[i - 1].grid(row= i, column=0, sticky="nsew")
+                self.product_list[i].grid(column=i, row=j, pady=10, padx=10, sticky="nsew")
 
-        ############################# TEST #############################
-
-        #self.test_product = self.Product(self.product_list_frame, product_id="00001", product_name="Apple", product_price="1.3", product_stock="5")
-        #self.test_product.grid(row=1, column=0, sticky="nsew")
-
-        #self.test_product = self.Product(self.product_list_frame, product_id="00002", product_name="Banana", product_price="0.89", product_stock="12")
-        #self.test_product.grid(row=1, column=1, sticky="nsew")
-
-        #self.test_product = self.Product(self.product_list_frame, product_id="00003", product_name="Orange", product_price="2.45", product_stock="45")
-        #self.test_product.grid(row=1, column=3, sticky="nsew")
-
-        ################################################################
+                i += 1
 
         self.configure_frame = ctk.CTkFrame(master=self)
         self.configure_frame.configure(corner_radius=0, fg_color="white")
         self.configure_frame.grid(row=1, column=0, sticky="nsew")
 
-        self.addBtn = AddBtn(text="Add new product", command=self.addProduct("00004", "Tomato", 1.3, 12), master=self.configure_frame)
-        self.deleteBtn = DeleteBtn(text="Delete product", command=self.deleteProduct, master=self.configure_frame)
+        self.addBtn = AddBtn(text="Add new product", command_name=self.addProduct, master=self.configure_frame)
+        self.deleteBtn = DeleteBtn(text="Delete product", command_name=self.deleteProduct, master=self.configure_frame)
         self.addBtn.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
         self.deleteBtn.grid(row=0, column=1, pady=10, padx=10, sticky="nsew")
 
@@ -64,12 +60,37 @@ class Products(ctk.CTkFrame):
 
         self.products_available_from_file = data
 
-    def addProduct(self, product_id, product_name, product_price, product_stock):
+    def addProduct(self):
+        self.add_window = ctk.CTkToplevel()
+        self.add_window.title("Add new product")
+        self.add_window.geometry("400x400")
+        self.add_window_frame = ctk.CTkFrame(master=self.add_window)
+        self.add_window_frame.configure(corner_radius=0, width=400, height=400)
+        self.add_window_frame.pack(fill="both", expand=True)
+
+        self.product_name_entry = ctk.CTkEntry(master=self.add_window_frame, placeholder_text="Product name", width=120, height=25, border_width=2, corner_radius=10)
+        self.product_name_entry.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
+
+        self.product_price_entry = ctk.CTkEntry(master=self.add_window_frame, placeholder_text="Product price", width=120, height=25, border_width=2, corner_radius=10)
+        self.product_price_entry.grid(row=1, column=0, pady=10, padx=10, sticky="nsew")
+
+        self.product_stock_entry = ctk.CTkEntry(master=self.add_window_frame, placeholder_text="Product stock", width=120, height=25, border_width=2, corner_radius=10)
+        self.product_stock_entry.grid(row=2, column=0, pady=10, padx=10, sticky="nsew")
+
+        confirmBtn = AddBtn(text="Confirm", command_name=self.confirm, master=self.add_window_frame)
+        cancelBtn = DeleteBtn(text="Cancel", command_name=self.cancel, master=self.add_window_frame)
+
+        confirmBtn.grid(row=3, column=0, pady=10, padx=10, sticky="nsew")
+        cancelBtn.grid(row=3, column=1, pady=10, padx=10, sticky="nsew")
+
+    def confirm(self):
+        product_id = "".join([random.choice("0123456789") for n in range(5)])
+
         new_product = {
             product_id : {
-                "product_name": product_name,
-                "product_price": product_price,
-                "product_stock": product_stock
+                "product_name": self.product_name_entry.get(),
+                "product_price": self.product_price_entry.get(),
+                "product_stock": self.product_stock_entry.get()
             }
         }
 
@@ -77,7 +98,13 @@ class Products(ctk.CTkFrame):
         with open("./src/products.json", "w") as products_file:
             json.dump(self.products_available_from_file, products_file, indent=4)
 
-        print("New product added")
+        self.loadProducts()
+        self.initUI()
+
+        self.add_window.destroy()
+
+    def cancel(self):
+        self.add_window.destroy()
     
     def deleteProduct(self):
         print("Product deleted")
