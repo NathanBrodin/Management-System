@@ -57,7 +57,6 @@ class Products(ctk.CTkFrame):
         with open('./src/products.json') as json_products:
             try :
                 data = json.load(json_products)
-                print("Products loaded")
             except:
                 print("Error loading products")
                 return
