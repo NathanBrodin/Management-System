@@ -14,20 +14,6 @@
                 "product_price": "0.89",
                 "product_stock": "25"
             }
-        },
-        {
-            "48458": {
-                "product_name": "Strawberry",
-                "product_price": "2.5",
-                "product_stock": "10"
-            }
-        },
-        {
-            "85987": {
-                "product_name": "Orange",
-                "product_price": "2.3",
-                "product_stock": "100"
-            }
         }
     ]
 }

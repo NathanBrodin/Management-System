@@ -29,8 +29,8 @@ class Products(ctk.CTkFrame):
         i = 0
         j = 0
         k = 0
-        products_available = self.products_available_from_file["products_available"]
-        for product in products_available:
+        self.products_available = self.products_available_from_file["products_available"]
+        for product in self.products_available:
             if k == 9:
                 break
             for key, value in product.items():
@@ -108,9 +108,42 @@ class Products(ctk.CTkFrame):
         self.add_window.destroy()
     
     def deleteProduct(self):
-        self.add_window = ctk.CTkToplevel()
-        self.add_window.title("Delete a product")
-        self.add_window.geometry("400x400")
+        self.delete_window = ctk.CTkToplevel()
+        self.delete_window.title("Delete a product")
+        self.delete_window.geometry("400x400")
+
+        products_names = []
+        for product in self.products_available:
+            for key, value in product.items():
+                products_names.append(value["product_name"])
+        
+        self.combobox = ctk.CTkOptionMenu(master=self.delete_window, values=products_names)  
+        self.combobox.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
+
+        deleteBtn = AddBtn(text="Delete selection", command_name=self.deleteConfirm, master=self.delete_window)
+        cancelBtn = DeleteBtn(text="Cancel", command_name=self.deleteCancel, master=self.delete_window)
+
+        deleteBtn.grid(row=2, column=0, pady=10, padx=10, sticky="nsew")
+        cancelBtn.grid(row=2, column=1, pady=10, padx=10, sticky="nsew")
+
+    def deleteConfirm(self):
+        choice = self.combobox.get()
+
+        for product in self.products_available:
+            for key, value in product.items():
+                if value["product_name"] == choice:
+                    self.products_available.remove(product)
+        
+        with open("./src/products.json", "w") as products_file:
+            json.dump(self.products_available_from_file, products_file, indent=4)
+
+        self.loadProducts()
+        self.initUI()
+
+        self.delete_window.destroy()
+
+    def deleteCancel(self):
+        self.delete_window.destroy()
 
     class Product(ctk.CTkFrame):
         def __init__(self, *args, product_id="", product_name="", product_price="", product_stock="", **kwargs):
