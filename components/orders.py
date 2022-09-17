@@ -8,9 +8,8 @@ class Orders(ctk.CTkFrame):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.loadOrders()
         self.loadProducts()
-
+        self.loadOrders()
 
         self.initUI()  
 
@@ -19,14 +18,14 @@ class Orders(ctk.CTkFrame):
         self.grid_rowconfigure(0, weight=1)
 
         self.orders_list_frame = ctk.CTkFrame(master=self)
-        self.orders_list_frame.configure(corner_radius=0, fg_color="black")
+        self.orders_list_frame.configure(corner_radius=0)
         self.orders_list_frame.grid(row=0, column=0, sticky="nsew")
 
-        self.orders_list_frame_title = ctk.CTkLabel(master=self, text="Orders activity",  width=120, height=25, text_font=("Arial Black", 12), text_color="white", anchor="nw")
+        self.orders_list_frame_title = ctk.CTkLabel(master=self.orders_list_frame, text="Orders activity",  width=120, height=25, text_font=("Arial Black", 12), anchor="nw")
         self.orders_list_frame_title.grid(row=0, column=0,  pady=10, padx=10, sticky="nsew")
 
         self.configure_frame = ctk.CTkFrame(master=self)
-        self.configure_frame.configure(corner_radius=0, fg_color="black")
+        self.configure_frame.configure(corner_radius=0)
         self.configure_frame.grid(row=1, column=0, sticky="nsew")
 
         self.createBtn = AddBtn(text="Create new order", command_name=self.createOrder, master=self.configure_frame)
@@ -41,13 +40,21 @@ class Orders(ctk.CTkFrame):
             if i == 9:
                 break
             for key, value in order.items():
-                self.orders_list.append(self.Order(self.orders_list_frame, product_id=key, product_name=value["product_name"], product_price=str(value["product_price"]), product_stock=str(value["product_stock"])))
-                self.orders_list[i].grid(column=0, row=i, pady=10, padx=10, sticky="nsew")
+                self.orders_list.append(self.Order(self.orders_list_frame, order_customer=value["order_customer"], order_product=value["order_product"], order_product_price=value["order_price_per_unit"], order_quantity=value["order_quantity"], order_id=key, order_status=value["order_status"], order_date=value["order_date"]))
+                self.orders_list[i].grid(column=0, row=i + 1, pady=10, padx=10, sticky="nsew")
 
                 i += 1
 
     def loadOrders(self):
-        pass
+        with open('./src/orders.json') as json_orders:
+            try :
+                data = json.load(json_orders)
+            except:
+                print("Error loading products")
+                return
+
+        self.orders_available_from_file = data
+        self.orders = self.orders_available_from_file["orders"]
 
     def loadProducts(self):
         with open('./src/products.json') as json_products:
@@ -79,25 +86,78 @@ class Orders(ctk.CTkFrame):
         # Select customer name
 
     def cancelOrder(self):
-        pass
+        self.delete_window = ctk.CTkToplevel()
+        self.delete_window.title("Delete a order")
+        self.delete_window.geometry("400x400")
 
+        orders_products = []
+        for order in self.orders:
+            for key, value in order.items():
+                orders_products.append(value["order_product"])
+        
+        self.combobox = ctk.CTkOptionMenu(master=self.delete_window, values=orders_products)  
+        self.combobox.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
 
+        deleteBtn = AddBtn(text="Delete selection", command_name=self.deleteConfirm, master=self.delete_window)
+        cancelBtn = DeleteBtn(text="Cancel", command_name=self.deleteCancel, master=self.delete_window)
+
+        deleteBtn.grid(row=2, column=0, pady=10, padx=10, sticky="nsew")
+        cancelBtn.grid(row=2, column=1, pady=10, padx=10, sticky="nsew")
+
+    def deleteConfirm(self):
+        choice = self.combobox.get()
+
+        for order in self.orders:
+            for key, value in order.items():
+                if value["order_product"] == choice:
+                    self.orders.remove(order)
+        
+        with open("./src/orders.json", "w") as orders_file:
+            json.dump(self.orders, orders_file, indent=4)
+
+        self.loadProducts()
+        self.loadOrders()
+        self.initUI()
+
+        self.delete_window.destroy()
+
+    def deleteCancel(self):
+        self.delete_window.destroy()
 
     class Order(ctk.CTkFrame):
-        def __init__(self, *args, order_product, order_quantity, order_id, order_status, order_date, **kwargs):
+        def __init__(self, *args, order_customer, order_product, order_product_price, order_quantity, order_id, order_status, order_date, **kwargs):
             super().__init__(*args, **kwargs)
 
-            self.order_product = order_product
-            self.order_quantity = order_quantity
-            self.order_id = order_id
-            self.order_status = order_status
-            self.order_cost = int(order_quantity) * int(order_product["product_price"])
-            self.order_date = order_date
+            self.order_customer = str(order_customer)
+            self.order_product = str(order_product)
+            self.order_quantity = str(order_quantity)
+            self.order_id = str(order_id)
+            self.order_status = str(order_status)
+            self.order_cost = str(float(order_quantity) * float(order_product_price))
+            self.order_date = str(order_date)
 
             self.initUI()
 
         def initUI(self):
-            self.configure(corner_radius=constants["width"] * 0.02, fg_color="#ffefe3",  width=0, height=0)
+            self.configure(corner_radius=constants["width"] * 0.02, height=0)
             self.grid(padx=5, pady=5, sticky="nsew")
 
-            self.order_customer = ctk.CTkLabel(master=self, text="", text_font=("Arial Black", 14), text_color="black", anchor="w", width=0)
+            self.order_product_label = ctk.CTkLabel(master=self, text=self.order_product, text_font=("Arial Black", 14), anchor="w", width=0)
+            self.order_product_quantity_label = ctk.CTkLabel(master=self, text="x" + self.order_quantity, text_font=("Arial", 12), anchor="w", width=0)
+            self.order_customer_label_label = ctk.CTkLabel(master=self, text=self.order_customer, text_font=("Arial", 12), anchor="w", width=0)
+            self.order_cost_label = ctk.CTkLabel(master=self, text=self.order_cost + "€", text_font=("Arial", 12), anchor="w", width=0)
+            self.order_date_label = ctk.CTkLabel(master=self, text=self.order_date, text_font=("Arial", 12), anchor="w", width=0)
+
+            if self.order_status == "Pending":
+                self.order_product_status_label = ctk.CTkLabel(master=self, text=self.order_status, text_font=("Arial", 12), text_color="orange", anchor="w", width=0)
+            elif self.order_status == "Completed":
+                self.order_product_status_label = ctk.CTkLabel(master=self, text=self.order_status, text_font=("Arial", 12), text_color="green", anchor="w", width=0)
+            elif self.order_status == "Cancelled":
+                self.order_product_status_label = ctk.CTkLabel(master=self, text=self.order_status, text_font=("Arial", 12), text_color="red", anchor="w", width=0)
+
+            self.order_product_label.grid(row=0, column=0, sticky="nsew", padx=10)
+            self.order_product_quantity_label.grid(row=0, column=1, sticky="nsew", padx=10)
+            self.order_product_status_label.grid(row=0, column=2, sticky="nsew", padx=10)
+            self.order_customer_label_label.grid(row=1, column=0, sticky="nsew", padx=10)
+            self.order_cost_label.grid(row=1, column=1, sticky="nsew", padx=10)
+            self.order_date_label.grid(row=1, column=2, sticky="nsew", padx=10)

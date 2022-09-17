@@ -19,10 +19,10 @@ class Products(ctk.CTkFrame):
         self.grid_rowconfigure(0, weight=1)
 
         self.product_list_frame = ctk.CTkFrame(master=self)
-        self.product_list_frame.configure(corner_radius=0, fg_color="white")
+        self.product_list_frame.configure(corner_radius=0)
         self.product_list_frame.grid(row=0, column=0, sticky="nsew")
 
-        self.product_list_frame_title = ctk.CTkLabel(master=self.product_list_frame, text="Products available",  width=120, height=25, text_font=("Arial Black", 12), text_color="black")
+        self.product_list_frame_title = ctk.CTkLabel(master=self.product_list_frame, text="Products available",  width=120, height=25, text_font=("Arial Black", 12))
         self.product_list_frame_title.grid(row=0, column=0,  pady=10, padx=10, sticky="nsew")
 
         self.product_list = []
@@ -45,7 +45,7 @@ class Products(ctk.CTkFrame):
                 i += 1
 
         self.configure_frame = ctk.CTkFrame(master=self)
-        self.configure_frame.configure(corner_radius=0, fg_color="white")
+        self.configure_frame.configure(corner_radius=0)
         self.configure_frame.grid(row=1, column=0, sticky="nsew")
 
         self.addBtn = AddBtn(text="Add new product", command_name=self.addProduct, master=self.configure_frame)
@@ -156,13 +156,13 @@ class Products(ctk.CTkFrame):
             self.initUI()
 
         def initUI(self):
-            self.configure(corner_radius=constants["width"] * 0.02, fg_color="#ffefe3",  width=0, height=0)
+            self.configure(corner_radius=constants["width"] * 0.02, width=0, height=0)
             self.grid(padx=5, pady=5, sticky="nsew")
 
-            self.product_name_label = ctk.CTkLabel(master=self, text=self.product_name, text_font=("Arial Black", 14), text_color="black", anchor="w", width=0)
-            self.product_id_label = ctk.CTkLabel(master=self, text="#" + self.product_id, text_font=("Arial", 12), text_color="#a6a6a7", anchor="w", width=0)
-            self.product_price_label = ctk.CTkLabel(master=self, text=self.product_price + "€", text_font=("Arial", 12), text_color="black", anchor="w", width=0)
-            self.product_stock_label = ctk.CTkLabel(master=self, text="x" + self.product_stock, text_font=("Arial", 12), text_color="black", anchor="e", width=0)
+            self.product_name_label = ctk.CTkLabel(master=self, text=self.product_name, text_font=("Arial Black", 14), anchor="w", width=0)
+            self.product_id_label = ctk.CTkLabel(master=self, text="#" + self.product_id, text_font=("Arial", 12), anchor="w", width=0)
+            self.product_price_label = ctk.CTkLabel(master=self, text=self.product_price + "€", text_font=("Arial", 12), anchor="w", width=0)
+            self.product_stock_label = ctk.CTkLabel(master=self, text="x" + self.product_stock, text_font=("Arial", 12), anchor="e", width=0)
 
             self.product_name_label.grid(row=0, column=0, pady=3, padx=10)
             self.product_id_label.grid(row=1, column=0, pady=3, padx=10)

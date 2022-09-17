@@ -28,22 +28,22 @@ class App(ctk.CTk):
 
         # Create the header
         self.header_frame = Header(self)
-        self.header_frame.configure(corner_radius=0, fg_color="white", height=constants["height"] * 0.1)
+        self.header_frame.configure(corner_radius=0, height=constants["height"] * 0.1)
         self.header_frame.grid(row=0, column=0)
 
         # Create the body
         self.body_frame = ctk.CTkFrame(master=self)
-        self.body_frame.configure(corner_radius=0, fg_color="white", height=constants["height"] * 0.9)
+        self.body_frame.configure(corner_radius=0, height=constants["height"] * 0.9)
         self.body_frame.grid(row=1, column=0, sticky="nsew")
 
         # Create the Products frame at the left side
         self.products_frame = Products(self.body_frame)
-        self.products_frame.configure(corner_radius=0, fg_color="white", width=constants["width"] * 0.7)
+        self.products_frame.configure(corner_radius=0, width=constants["width"] * 0.7)
         self.products_frame.grid(row=0, column=0)
 
         # Create the Orders frame at the right side
         self.orders_frame = Orders(self.body_frame)
-        self.orders_frame.configure(corner_radius=constants["width"] * 0.02, fg_color="black", width=constants["width"] * 0.3)
+        self.orders_frame.configure(corner_radius=constants["width"] * 0.02, width=constants["width"] * 0.3)
         self.orders_frame.grid(row=0, column=1)
 
         for frame in [self.header_frame, self.body_frame, self.products_frame, self.orders_frame]:
