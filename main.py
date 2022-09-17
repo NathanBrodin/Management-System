@@ -36,12 +36,12 @@ class App(ctk.CTk):
         self.body_frame.configure(corner_radius=0, fg_color="white", height=constants["height"] * 0.9)
         self.body_frame.grid(row=1, column=0, sticky="nsew")
 
-        # Create the Product frame at the left side
+        # Create the Products frame at the left side
         self.products_frame = Products(self.body_frame)
         self.products_frame.configure(corner_radius=0, fg_color="white", width=constants["width"] * 0.7)
         self.products_frame.grid(row=0, column=0)
 
-        # Create the Product frame at the right side
+        # Create the Orders frame at the right side
         self.orders_frame = Orders(self.body_frame)
         self.orders_frame.configure(corner_radius=constants["width"] * 0.02, fg_color="black", width=constants["width"] * 0.3)
         self.orders_frame.grid(row=0, column=1)
