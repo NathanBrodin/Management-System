@@ -13,13 +13,12 @@ from constants import constants
 class App(ctk.CTk):
     def __init__(self): 
         super().__init__()
-
+        
         self.title("Management System")
         self.calculateCenter()
         self.initUI()
 
-        self.bind('<Escape>', self.escape) # End the program when pressing ESC
-    
+        self.bind('<Escape>', self.escape) # End the program when pressing ESC    
 
     def initUI(self):
         # Create the layout for the User Interface

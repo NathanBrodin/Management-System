@@ -3,6 +3,8 @@ from constants import constants
 from components.addBtn import AddBtn
 from components.deleteBtn import DeleteBtn  
 import json
+import random
+from datetime import date
 
 class Orders(ctk.CTkFrame):
     def __init__(self, *args, **kwargs):
@@ -78,25 +80,79 @@ class Orders(ctk.CTkFrame):
                 products_names.append(value["product_name"])
         
         self.combobox = ctk.CTkOptionMenu(master=self.create_window, values=products_names)  
-        self.combobox.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
+        self.combobox.grid(row=0, column=0, pady=10, padx=10, sticky="nsew", columnspan=2)
 
         # Select quantity
-        # if quantity > stock -> error
+        self.quantity = ctk.CTkComboBox(master=self.create_window, values=[str(i) for i in range(1, 100)])
+        self.quantity.grid(row=1, column=0, pady=10, padx=10, sticky="nsew", columnspan=2)
 
-        # Select customer name
+        self.customer_name_entry = ctk.CTkEntry(master=self.create_window, placeholder_text="Customer name", width=120, height=25, border_width=2, corner_radius=10)
+        self.customer_name_entry.grid(row=2, column=0, pady=10, padx=10, sticky="nsew", columnspan=2)
+
+        confirmBtn = AddBtn(text="Confirm", command_name=self.confirm, master=self.create_window)
+        cancelBtn = DeleteBtn(text="Cancel", command_name=self.cancel, master=self.create_window)
+
+        confirmBtn.grid(row=3, column=0, pady=10, padx=10, sticky="nsew")
+        cancelBtn.grid(row=3, column=1, pady=10, padx=10, sticky="nsew")
+
+    def confirm(self):
+        choice = self.combobox.get()
+        for product in self.products_available:
+            for key, value in product.items():
+                if value["product_name"] == choice:
+                    product_choice = product 
+
+        for key, value in product_choice.items():
+            product_price = value["product_price"]
+            product_name = value["product_name"]
+            product_stock = value["product_stock"]
+
+        
+        if int(product_stock) < int(self.quantity.get()):
+            self.quantity.configure(fg_color="red")
+            return
+
+        order_id = "".join([random.choice("0123456789") for n in range(5)])
+
+        today = date.today()
+
+        new_order = {
+            order_id: {
+                "order_product": str(product_name),
+                "order_price_per_unit": str(product_price),
+                "order_quantity": str(self.quantity.get()),
+                "order_customer": str(self.customer_name_entry.get()),
+                "order_date": str(today.strftime("%d/%m/%Y")),
+                "order_status": "Pending"
+            }
+        }
+
+
+        self.orders_available_from_file["orders"].append(new_order)
+        with open("./src/orders.json", "w") as orders_file:
+            json.dump(self.orders_available_from_file, orders_file, indent=4)
+
+        self.loadProducts()
+        self.loadOrders()
+        self.initUI()
+
+        self.create_window.destroy()
+
+    def cancel(self):
+        self.create_window.destroy()
 
     def cancelOrder(self):
         self.delete_window = ctk.CTkToplevel()
         self.delete_window.title("Delete a order")
         self.delete_window.geometry("400x400")
 
-        orders_products = []
+        orders_customer = []
         for order in self.orders:
             for key, value in order.items():
-                orders_products.append(value["order_product"])
+                orders_customer.append(value["order_customer"])
         
-        self.combobox = ctk.CTkOptionMenu(master=self.delete_window, values=orders_products)  
-        self.combobox.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
+        self.cancelMenu = ctk.CTkOptionMenu(master=self.delete_window, values=orders_customer)  
+        self.cancelMenu.grid(row=0, column=0, pady=10, padx=10, sticky="nsew", columnspan=2)
 
         deleteBtn = AddBtn(text="Delete selection", command_name=self.deleteConfirm, master=self.delete_window)
         cancelBtn = DeleteBtn(text="Cancel", command_name=self.deleteCancel, master=self.delete_window)
@@ -105,15 +161,15 @@ class Orders(ctk.CTkFrame):
         cancelBtn.grid(row=2, column=1, pady=10, padx=10, sticky="nsew")
 
     def deleteConfirm(self):
-        choice = self.combobox.get()
+        choice = self.cancelMenu.get()
 
         for order in self.orders:
             for key, value in order.items():
-                if value["order_product"] == choice:
+                if value["order_customer"] == choice:
                     self.orders.remove(order)
         
         with open("./src/orders.json", "w") as orders_file:
-            json.dump(self.orders, orders_file, indent=4)
+            json.dump(self.orders_available_from_file, orders_file, indent=4)
 
         self.loadProducts()
         self.loadOrders()
@@ -137,6 +193,10 @@ class Orders(ctk.CTkFrame):
             self.order_date = str(order_date)
 
             self.initUI()
+
+        def changeStatus(self, event):
+            print("Button pressed")
+            dialog = ctk.CTkInputDialog(master=None, text="Type in a number:", title="Test")
 
         def initUI(self):
             self.configure(corner_radius=constants["width"] * 0.02, height=0)

@@ -23,7 +23,7 @@ class Products(ctk.CTkFrame):
         self.product_list_frame.grid(row=0, column=0, sticky="nsew")
 
         self.product_list_frame_title = ctk.CTkLabel(master=self.product_list_frame, text="Products available",  width=120, height=25, text_font=("Arial Black", 12))
-        self.product_list_frame_title.grid(row=0, column=0,  pady=10, padx=10, sticky="nsew")
+        self.product_list_frame_title.grid(row=0, column=0,  pady=10, padx=10, sticky="w", columnspan=2)
 
         self.product_list = []
         i = 0
@@ -69,13 +69,13 @@ class Products(ctk.CTkFrame):
         self.add_window.geometry("400x400")
 
         self.product_name_entry = ctk.CTkEntry(master=self.add_window, placeholder_text="Product name", width=120, height=25, border_width=2, corner_radius=10)
-        self.product_name_entry.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
+        self.product_name_entry.grid(row=0, column=0, pady=10, padx=10, sticky="nsew", columnspan=2)
 
         self.product_price_entry = ctk.CTkEntry(master=self.add_window, placeholder_text="Product price", width=120, height=25, border_width=2, corner_radius=10)
-        self.product_price_entry.grid(row=1, column=0, pady=10, padx=10, sticky="nsew")
+        self.product_price_entry.grid(row=1, column=0, pady=10, padx=10, sticky="nsew", columnspan=2)
 
         self.product_stock_entry = ctk.CTkEntry(master=self.add_window, placeholder_text="Product stock", width=120, height=25, border_width=2, corner_radius=10)
-        self.product_stock_entry.grid(row=2, column=0, pady=10, padx=10, sticky="nsew")
+        self.product_stock_entry.grid(row=2, column=0, pady=10, padx=10, sticky="nsew", columnspan=2)
 
         confirmBtn = AddBtn(text="Confirm", command_name=self.confirm, master=self.add_window)
         cancelBtn = DeleteBtn(text="Cancel", command_name=self.cancel, master=self.add_window)
@@ -117,7 +117,7 @@ class Products(ctk.CTkFrame):
                 products_names.append(value["product_name"])
         
         self.combobox = ctk.CTkOptionMenu(master=self.delete_window, values=products_names)  
-        self.combobox.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
+        self.combobox.grid(row=0, column=0, pady=10, padx=10, sticky="nsew", columnspan=2)
 
         deleteBtn = AddBtn(text="Delete selection", command_name=self.deleteConfirm, master=self.delete_window)
         cancelBtn = DeleteBtn(text="Cancel", command_name=self.deleteCancel, master=self.delete_window)
