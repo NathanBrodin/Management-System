@@ -208,6 +208,8 @@ class Orders(ctk.CTkFrame):
             self.order_cost_label = ctk.CTkLabel(master=self, text=self.order_cost + "€", text_font=("Arial", 12), anchor="w", width=0)
             self.order_date_label = ctk.CTkLabel(master=self, text=self.order_date, text_font=("Arial", 12), anchor="w", width=0)
 
+            #optionmenu_var = ctk.StringVar(value=self.order_status)
+            #self.order_product_status_label = ctk.CTkOptionMenu(master=self, values=["Pending", "In progress", "Done"], variable=optionmenu_var, width=0, text_font=("Arial", 12))
             if self.order_status == "Pending":
                 self.order_product_status_label = ctk.CTkLabel(master=self, text=self.order_status, text_font=("Arial", 12), text_color="orange", anchor="w", width=0)
             elif self.order_status == "Completed":
