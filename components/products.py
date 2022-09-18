@@ -34,7 +34,7 @@ class Products(ctk.CTkFrame):
             if k == 9:
                 break
             for key, value in product.items():
-                if (i % 3) == 0:
+                if (i % 4) == 0:
                     j += 1
                     i = 0
 

@@ -39,7 +39,7 @@ class Orders(ctk.CTkFrame):
         i = 0
         self.orders = self.orders_available_from_file["orders"]
         for order in self.orders:
-            if i == 9:
+            if i == 7:
                 break
             for key, value in order.items():
                 self.orders_list.append(self.Order(self.orders_list_frame, order_customer=value["order_customer"], order_product=value["order_product"], order_product_price=value["order_price_per_unit"], order_quantity=value["order_quantity"], order_id=key, order_status=value["order_status"], order_date=value["order_date"]))
@@ -195,8 +195,7 @@ class Orders(ctk.CTkFrame):
             self.initUI()
 
         def changeStatus(self, event):
-            print("Button pressed")
-            dialog = ctk.CTkInputDialog(master=None, text="Type in a number:", title="Test")
+            print("change status")
 
         def initUI(self):
             self.configure(corner_radius=constants["width"] * 0.02, height=0)
@@ -208,14 +207,13 @@ class Orders(ctk.CTkFrame):
             self.order_cost_label = ctk.CTkLabel(master=self, text=self.order_cost + "€", text_font=("Arial", 12), anchor="w", width=0)
             self.order_date_label = ctk.CTkLabel(master=self, text=self.order_date, text_font=("Arial", 12), anchor="w", width=0)
 
-            #optionmenu_var = ctk.StringVar(value=self.order_status)
-            #self.order_product_status_label = ctk.CTkOptionMenu(master=self, values=["Pending", "In progress", "Done"], variable=optionmenu_var, width=0, text_font=("Arial", 12))
+            self.order_product_status_label = ctk.CTkLabel(master=self, text=self.order_status, text_font=("Arial", 12), anchor="w", width=0)
             if self.order_status == "Pending":
-                self.order_product_status_label = ctk.CTkLabel(master=self, text=self.order_status, text_font=("Arial", 12), text_color="orange", anchor="w", width=0)
+                self.order_product_status_label.configure(text_color="orange")
             elif self.order_status == "Completed":
-                self.order_product_status_label = ctk.CTkLabel(master=self, text=self.order_status, text_font=("Arial", 12), text_color="green", anchor="w", width=0)
+                self.order_product_status_label.configure(text_color="green")
             elif self.order_status == "Cancelled":
-                self.order_product_status_label = ctk.CTkLabel(master=self, text=self.order_status, text_font=("Arial", 12), text_color="red", anchor="w", width=0)
+                self.order_product_status_label.configure(text_color="red")
 
             self.order_product_label.grid(row=0, column=0, sticky="nsew", padx=10)
             self.order_product_quantity_label.grid(row=0, column=1, sticky="nsew", padx=10)
@@ -223,3 +221,4 @@ class Orders(ctk.CTkFrame):
             self.order_customer_label_label.grid(row=1, column=0, sticky="nsew", padx=10)
             self.order_cost_label.grid(row=1, column=1, sticky="nsew", padx=10)
             self.order_date_label.grid(row=1, column=2, sticky="nsew", padx=10)
+            

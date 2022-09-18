@@ -17,7 +17,17 @@
                 "order_quantity": "10",
                 "order_customer": "Alice",
                 "order_date": "18/09/2022",
-                "order_status": "Pending"
+                "order_status": "Cancelled"
+            }
+        },
+        {
+            "77810": {
+                "order_product": "Apple",
+                "order_price_per_unit": "1.3",
+                "order_quantity": "1",
+                "order_customer": "",
+                "order_date": "18/09/2022",
+                "order_status": "Completed"
             }
         }
     ]
